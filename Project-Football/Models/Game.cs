@@ -1,15 +1,27 @@
 ﻿
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Project_Football.Models
 {
     public class Game
     {
+        private ICollection<Prediction> predictions;
+        public Game()
+        {
+            this.Predictions = new HashSet<Prediction>();
+        }
         public int Id { get; set; }
-        public Team HomeTeam { get; set; }
-        public Team AwayTeam { get; set; }
+        public virtual Team HomeTeam { get; set; }
+        public virtual Team AwayTeam { get; set; }
         public int? HomeScore { get; set; }
         public int? AwayScore { get; set; }
+        public virtual ICollection<Prediction> Predictions 
+        {
+            get { return this.predictions; }
+            set { this.predictions = value; }
+
+        }
         [NotMapped]
         public GameResult Result 
         {
